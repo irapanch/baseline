@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {  Metal} from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
 
 
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   applicationName: "OSBB27",
   description: "An app for OSBB27 homeowners: manage bills, vote, stay updated with news, and provide feedback.",
 
-  icons: "/icons/icon-512x512.png", 
+  // icons: "/favicon.ico", 
   manifest: "/manifest.json", 
 
 };
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={geistMono.className}
+        className={`${geistMono.className} `}
       >
         {children}
       </body>
