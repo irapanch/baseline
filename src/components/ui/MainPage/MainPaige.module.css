@@ -3,7 +3,8 @@
   background: url("/images/image.png") no-repeat center center / cover;
   width: 100%;
   max-width: 435px;
-  min-height: 926px;
+  min-height: 825px;
+  /* min-height: 100vh; */
   margin: 0 auto;
 }
 
@@ -21,27 +22,31 @@
   width: 100%;
   height: 100vh;
   color: beige;
+  /* clip-path: inset(0 50px 0 0); */
 }
 .list::before {
   content: "";
-  border-radius: 50%;
+  border-radius: 99% 1% 0% 100% / 52% 49% 51% 48%;
+
   border: 6px solid rgba(255, 255, 255, 0.75);
+
+  border-right: none;
 
   opacity: 0.75;
   filter: blur(4px);
 
   position: absolute;
-  top: 150px;
+  top: 90px;
   right: 50%;
-  transform: translateX(82%);
-  width: 652px;
+  transform: translateX(61%);
+  width: 326px;
   height: 652px;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 .li1 {
   position: absolute;
   right: 60px;
-  top: 128px;
+  top: 68px;
   width: 104px;
   height: 104px;
   background: rgba(0, 0, 0, 0.75);
@@ -55,7 +60,7 @@
 .li2 {
   position: absolute;
   right: 165px;
-  top: 212px;
+  top: 152px;
   width: 126px;
   height: 126px;
   background: #e2ffa3;
@@ -69,7 +74,7 @@
 .li3 {
   position: absolute;
   right: 212px;
-  top: 361px;
+  top: 301px;
   width: 155px;
   height: 155px;
   background: rgba(0, 0, 0, 0.75);
@@ -82,7 +87,7 @@
 .li4 {
   position: absolute;
   right: 213px;
-  top: 573px;
+  top: 513px;
   width: 105px;
   height: 105px;
   background: rgba(0, 0, 0, 0.75);
@@ -95,7 +100,7 @@
 .li5 {
   position: absolute;
   right: 58px;
-  top: 690px;
+  top: 630px;
   width: 140px;
   height: 140px;
   background: rgba(0, 0, 0, 0.75);
@@ -108,7 +113,7 @@
 .li6 {
   position: absolute;
   right: 79px;
-  top: 424px;
+  top: 364px;
   width: 74px;
   height: 74px;
   background: #e2ffa3;
