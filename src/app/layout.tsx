@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import {  Metal} from "next/font/google";
+import { Metal } from "next/font/google";
 import "../styles/globals.css";
-
-
+import Header from "@/components/Header/Header";
 
 const geistMono = Metal({
   weight: ["400"],
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = { 
-  title: "OSBB27 – Home Management", 
+export const metadata: Metadata = {
+  title: "OSBB27 – Home Management",
   applicationName: "OSBB27",
-  description: "An app for OSBB27 homeowners: manage bills, vote, stay updated with news, and provide feedback.",
+  description:
+    "An app for OSBB27 homeowners: manage bills, vote, stay updated with news, and provide feedback.",
 
-  // icons: "/favicon.ico", 
-  manifest: "/manifest.json", 
-
+  // icons: "/favicon.ico",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -26,10 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistMono.className} `}
-      >
-        {children}
+      <body className={`${geistMono.className} `}>
+        <main>{children}</main>
+        {/* <CookiesComponent /> */}
       </body>
     </html>
   );
