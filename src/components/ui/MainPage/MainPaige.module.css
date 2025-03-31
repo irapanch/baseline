@@ -19,8 +19,8 @@
 .list {
   position: relative;
   width: 100%;
-  height: 652px;
-  /* overflow-x: hidden; */
+  height: 100vh;
+  color: beige;
 }
 .list::before {
   content: "";
@@ -36,65 +36,95 @@
   transform: translateX(82%);
   width: 652px;
   height: 652px;
+  overflow-x: hidden;
 }
 .li1 {
   position: absolute;
-  right: 168px;
-  top: 110px;
+  right: 60px;
+  top: 128px;
   width: 104px;
   height: 104px;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 50%;
   backdrop-filter: blur(8.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .li2 {
   position: absolute;
-  right: 321px;
-  top: 191px;
-  width: 132px;
-  height: 132px;
+  right: 165px;
+  top: 212px;
+  width: 126px;
+  height: 126px;
   background: #e2ffa3;
+  color: rgba(0, 0, 0, 0.75);
   border-radius: 50%;
   backdrop-filter: blur(11px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .li3 {
   position: absolute;
-  right: 393px;
+  right: 212px;
   top: 361px;
-  width: 166px;
-  height: 166px;
+  width: 155px;
+  height: 155px;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 50%;
   backdrop-filter: blur(8.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .li4 {
   position: absolute;
-  right: 359px;
-  top: 588px;
-  width: 128px;
-  height: 128px;
+  right: 213px;
+  top: 573px;
+  width: 105px;
+  height: 105px;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 50%;
   backdrop-filter: blur(8.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .li5 {
   position: absolute;
-  right: 170px;
-  top: 700px;
-  width: 154px;
-  height: 154px;
+  right: 58px;
+  top: 690px;
+  width: 140px;
+  height: 140px;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 50%;
   backdrop-filter: blur(8.5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .li6 {
   position: absolute;
-  right: 170px;
-  top: 700px;
+  right: 79px;
+  top: 424px;
   width: 74px;
   height: 74px;
   background: #e2ffa3;
   border-radius: 50%;
+  box-shadow: 0 0 15px rgb(255 255 255);
   backdrop-filter: blur(11px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 1.5s infinite alternate ease-in-out;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
 }

@@ -11,12 +11,21 @@ export default function MainPage() {
       <section className={styles.mainPage}>
         <div className="container">
           <ul className={styles.list}>
-            <li className={styles.li1}></li>
-            <li className={styles.li2}></li>
-            <li className={styles.li3}></li>
-            <li className={styles.li4}></li>
-            <li className={styles.li5}></li>
-            <li className={styles.li6}></li>
+            <li className={styles.li1}>Новини</li>
+            <li className={styles.li2}>Платежі</li>
+            <li className={styles.li3}>Баланс</li>
+            <li className={styles.li4}>Чат</li>
+            <li className={styles.li5}>Пропозиції</li>
+            <li className={styles.li6}>
+              <Link className="" href="/">
+                <Image
+                  src="/images/account-reactivate.svg"
+                  alt="User"
+                  width={44}
+                  height={44}
+                />
+              </Link>
+            </li>
           </ul>
         </div>
       </section>
