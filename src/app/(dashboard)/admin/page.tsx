@@ -1,3 +1,5 @@
-export default function AdminPage(){
-    return(<div>Admin panel</div>)
+import GoogleSheetPage from "@/db/GoogleSheetPage";
+
+export default function AdminPage() {
+  return <GoogleSheetPage />;
 }

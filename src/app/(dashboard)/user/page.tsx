@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-export function ExpensesPage() {
+
+export default function User() {
   return (
     <div>
-      ExpensesPage content
+      User panel
       <Link href="/">
         <Image
           src="/images/arrow-circle-backward.svg"
