@@ -40,17 +40,20 @@
   gap: 5px;
 }
 .colorsList div {
-  width: 20px;
+  max-width: 20px;
   height: 20px;
 }
 
 .color1 > div {
+  width: 100%;
   background-color: rgb(16, 173, 2);
 }
 .color2 > div {
+  width: 100%;
   background-color: rgb(189, 172, 80);
 }
 .color3 > div {
+  width: 100%;
   background-color: rgb(255, 0, 0);
 }
 .parent {
