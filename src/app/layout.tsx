@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Metal } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "../styles/globals.css";
 import Header from "@/components/Header/Header";
 
-const geistMono = Metal({
-  weight: ["400"],
+const geistMono = Poppins({
+  weight: ["400", "600"], // Вибір необхідних ваг шрифта
   subsets: ["latin"],
 });
 

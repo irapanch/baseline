@@ -1,9 +1,13 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./MainPaige.module.css";
-import "../../../styles/globals.css";
+import "@/styles/globals.css";
+import { useState } from "react";
+import LoginModal from "@/components/User/Login/LoginModal";
 
 export default function MainPage() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
       <section className={styles.mainPage}>
@@ -34,19 +38,25 @@ export default function MainPage() {
                 Пропозиції
               </Link>
             </li>
+
             <li className={styles.li6}>
-              <Link className={styles.link} href="/user">
+              <div
+                className={styles.link}
+                onClick={() => setShowModal(true)}
+                style={{ cursor: "pointer" }}
+              >
                 <Image
                   src="/images/account-reactivate.svg"
                   alt="User"
                   width={44}
                   height={44}
                 />
-              </Link>
+              </div>
             </li>
           </ul>
         </div>
       </section>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   );
 }
