@@ -47,14 +47,23 @@
 .color1 > div {
   width: 100%;
   background-color: rgb(16, 173, 2);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 .color2 > div {
   width: 100%;
   background-color: rgb(189, 172, 80);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 .color3 > div {
   width: 100%;
   background-color: rgb(255, 0, 0);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 .parent {
   display: grid;
@@ -71,7 +80,7 @@
   background: #777385;
   width: 16px;
   height: 15px;
-  font-size: 11px;
+  font-size: 10px;
 }
 .div1 {
   grid-area: 26 / 1 / 27 / 2;
