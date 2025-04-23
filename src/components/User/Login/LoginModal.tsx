@@ -7,6 +7,8 @@ import styles from "./LoginModal.module.css";
 export default function LoginModal({ onClose }: { onClose: () => void }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [apartmentId, setApartmentId] = useState("");
+
   const [error, setError] = useState<string | null>(null); // Зберігаємо error як string або null
   const router = useRouter();
 
@@ -15,8 +17,8 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
 
     // Логіка перевірки логіну та паролю
     if (login === "123" && password === "123") {
-      onClose(); // Закриває модалку
-      router.push("/user"); // Перехід на сторінку user
+      onClose();
+      router.push(`/user/${apartmentId}`);
     }
     if (login === "admin" && password === "456") {
       onClose(); // Закриває модалку
@@ -32,12 +34,15 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
         <form className={styles.userForm} onSubmit={handleLogin}>
           <input
             className={styles.userData}
-            type="text"
+            type="number"
             placeholder="Номер квартири"
-            pattern="^\d{1,3}$" // Допускаються тільки цифри і максимум 3 символи
-            title="Тільки цифри, максимум 3 символи"
+            min="0"
+            max="176"
+            value={apartmentId}
+            onChange={(e) => setApartmentId(e.target.value)}
             required
           />
+
           <input
             className={styles.userData}
             type="text"

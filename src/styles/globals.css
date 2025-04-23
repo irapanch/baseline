@@ -39,3 +39,10 @@ body {
   outline: 1px solid rgb(11, 114, 80);
 }
 
+.container--balance {
+  width: 100vw;
+  max-width: 435px;
+  padding: 40px 15px;
+  margin: 0 auto;
+  outline: 1px solid rgb(11, 114, 80);
+}
