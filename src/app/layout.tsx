@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../styles/globals.css";
-import Header from "@/components/Header/Header";
+import { ApartmentProvider } from "@/context/ApartmentContext";
+import { API_URL } from "@/api";
 
 const geistMono = Poppins({
   weight: ["400", "600"], // Вибір необхідних ваг шрифта
@@ -18,15 +19,21 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const res = await fetch(`${API_URL}api/apartments/`, {
+    cache: "no-store",
+  });
+  const apartments = await res.json();
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${geistMono.className} `}>
-        <main>{children}</main>
+        <ApartmentProvider initialApartments={apartments}>
+          <main>{children}</main>
+        </ApartmentProvider>
         {/* <CookiesComponent /> */}
       </body>
     </html>
