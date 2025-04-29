@@ -1,3 +1,4 @@
+import AuthModal from "@/components/User/Auth/AuthModal";
 import Image from "next/image";
 import Link from "next/link";
 export function ExpensesPage() {
@@ -12,6 +13,7 @@ export function ExpensesPage() {
           height={44}
         />
       </Link>
+      <AuthModal />
     </div>
   );
 }

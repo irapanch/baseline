@@ -2,6 +2,7 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import UserCabinet from "@/components/User/UserCabinet/UserCabinet";
 
 export default function UserPage() {
   const params = useParams();
@@ -10,8 +11,8 @@ export default function UserPage() {
   return (
     <div>
       <h1>Панель користувача</h1>
-      <p>Ваш ID (номер квартири): {userId}</p>
-      {/* Тут можна додати інфу про юзера */}
+      <p>Ваш номер квартири: {userId}</p>
+      <UserCabinet />
       <Link href="/">
         <Image
           src="/images/arrow-circle-backward.svg"

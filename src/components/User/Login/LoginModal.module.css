@@ -36,14 +36,13 @@
 }
 
 .enterButton {
-  width: 120px;
+  min-width: 120px;
   border-radius: 3px;
   color: var(--foreground);
   background: #e2ffa3;
   border: 1px solid rgb(0, 0, 0);
   margin: auto;
-  padding: 7px 0;
-  
+  padding: 7px;
 }
 .closeButton {
   position: absolute;
@@ -59,6 +58,15 @@
   align-items: center;
   font-size: 14px;
 }
-.linkOut{
-text-decoration: underline;
+.linkOut {
+  text-decoration: underline;
+}
+
+.backButton {
+  margin-left: auto;
+}
+.attentionText {
+  color: red;
+  text-transform: uppercase;
+  margin-top: 54px;
 }
