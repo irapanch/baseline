@@ -5,7 +5,7 @@ import { ApartmentProvider } from "@/context/ApartmentContext";
 import { API_URL } from "@/api";
 
 const geistMono = Poppins({
-  weight: ["400", "600"], // Вибір необхідних ваг шрифта
+  weight: ["400", "600"],
   subsets: ["latin"],
 });
 
