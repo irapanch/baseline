@@ -10,8 +10,8 @@ export default function UserPage() {
 
   return (
     <div>
-      <h1>Панель користувача</h1>
-      <p>Ваш номер квартири: {userId}</p>
+      <h1>Панель користувача квартири: {userId}</h1>
+
       <UserCabinet />
       <Link href="/">
         <Image

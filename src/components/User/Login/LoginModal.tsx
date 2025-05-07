@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./LoginModal.module.css";
+import { API_URL } from "@/api";
 
+// const API_URL = "http://localhost:4200/";
 export default function LoginModal({ onClose }: { onClose: () => void }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -12,19 +14,32 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
   const [error, setError] = useState<string | null>(null); // Зберігаємо error як string або null
   const router = useRouter();
 
-  const handleLogin = (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
-    // Логіка перевірки логіну та паролю
-    if (login === "123" && password === "123") {
-      onClose();
-      router.push(`/user/${apartmentId}`);
-    }
-    if (login === "admin" && password === "456") {
-      onClose(); // Закриває модалку
-      router.push("/admin"); // admin
-    } else {
-      setError("Неправильний логін або пароль. Не зареєстровані? ");
+    try {
+      const response = await fetch(`${API_URL}api/users`);
+
+      const users = await response.json();
+
+      const user = users.find(
+        (u: any) => u.login === login && u.password == password
+      );
+      console.log(user, "user");
+
+      if (user) {
+        onClose();
+        if (user.login === "admin") {
+          router.push("/admin");
+        } else {
+          router.push(`/user/${user.number}`);
+        }
+      } else {
+        setError("Неправильний логін або пароль. Не зареєстровані?");
+      }
+    } catch (err) {
+      console.error("Помилка при отриманні користувачів:", err);
+      setError("Сталася помилка. Спробуйте пізніше.");
     }
   };
 
