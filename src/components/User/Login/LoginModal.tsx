@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import styles from "./LoginModal.module.css";
 import { API_URL } from "@/api";
 
-// const API_URL = "http://localhost:4200/";
 export default function LoginModal({ onClose }: { onClose: () => void }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +17,10 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}api/users`);
+      const response = await fetch(`${API_URL}api/users`, {
+        method: "GET",
+        credentials: "include",
+      });
 
       const users = await response.json();
 
@@ -38,7 +40,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
         setError("Неправильний логін або пароль. Не зареєстровані?");
       }
     } catch (err) {
-      console.error("Помилка при отриманні користувачів:", err);
+      console.error("Помилка при отриманні користувача", err);
       setError("Сталася помилка. Спробуйте пізніше.");
     }
   };
