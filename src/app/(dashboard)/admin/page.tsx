@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getDataFromGoogleSheet } from "@/api/sheets-api";
 import { API_URL } from "@/api";
+import RegistrationForm from "@/components/User/Registration/RegistrationForm";
 
 export default function AdminPage() {
   const [data, setData] = useState([]);
@@ -53,6 +54,7 @@ export default function AdminPage() {
 
   return (
     <div className="container mx-auto p-4">
+      <RegistrationForm />
       <Link href="/">
         <Image
           src="/images/arrow-circle-backward.svg"
