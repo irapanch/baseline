@@ -4,6 +4,7 @@ import { useState } from "react";
 import { API_URL } from "@/api";
 
 export default function RegistrationForm() {
+  const [userName, setUserName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -27,6 +28,7 @@ export default function RegistrationForm() {
         },
         credentials: "include",
         body: JSON.stringify({
+          userName,
           login,
           password,
           confirmPassword,
@@ -37,6 +39,7 @@ export default function RegistrationForm() {
       if (response.ok) {
         setSuccess("Реєстрація успішна!");
         setError(null);
+        setUserName("");
         setLogin("");
         setPassword("");
         setConfirmPassword("");
@@ -59,7 +62,14 @@ export default function RegistrationForm() {
       className="flex flex-col gap-2 max-w-sm mx-auto"
     >
       <h2 className="text-xl font-bold mb-2">Реєстрація</h2>
-
+      <input
+        type="text"
+        placeholder="Iм'я користувача"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        required
+        className="border p-2 rounded"
+      />
       <input
         type="text"
         placeholder="+380XXXXXXXXX"
@@ -103,7 +113,7 @@ export default function RegistrationForm() {
       </button>
 
       {error && <div className="text-red-600">{error}</div>}
-      {success && <div className="text-green-600">{success}</div>}
+      {success && <div className="text-white-600">{success}</div>}
     </form>
   );
 }
