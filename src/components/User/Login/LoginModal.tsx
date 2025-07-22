@@ -18,7 +18,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
     setError(null);
 
     try {
-      const res = await fetch(`${API_URL}/api/auth/login`, {
+      const res = await fetch(`${API_URL}api/auth/login`, {
         method: "POST",
         credentials: "include", // <== ОБОВ’ЯЗКОВО для куків (сесій)
         headers: {
