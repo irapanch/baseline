@@ -10,38 +10,40 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
   const [password, setPassword] = useState("");
   const [apartmentId, setApartmentId] = useState("");
 
-  const [error, setError] = useState<string | null>(null); // Зберігаємо error як string або null
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleLogin = async (e: any) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
 
     try {
-      const response = await fetch(`${API_URL}api/users`, {
-        method: "GET",
-        credentials: "include",
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        credentials: "include", // <== ОБОВ’ЯЗКОВО для куків (сесій)
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ login, password }),
       });
 
-      const users = await response.json();
-
-      const user = users.find(
-        (u: any) => u.login === login && u.password == password
-      );
-      console.log(user, "user");
-
-      if (user) {
-        onClose();
-        if (user.login === "admin") {
-          router.push("/admin");
-        } else {
-          router.push(`/user/${user.number}`);
-        }
-      } else {
-        setError("Неправильний логін або пароль. Не зареєстровані?");
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || "Невірний логін або пароль");
       }
-    } catch (err) {
-      console.error("Помилка при отриманні користувача", err);
-      setError("Сталася помилка. Спробуйте пізніше.");
+
+      const data = await res.json();
+      const user = data.user;
+
+      onClose();
+
+      if (user.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push(`/user/${user.number}`);
+      }
+    } catch (err: any) {
+      setError(err.message || "Сталася помилка. Спробуйте пізніше.");
     }
   };
 
