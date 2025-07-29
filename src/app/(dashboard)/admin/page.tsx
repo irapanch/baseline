@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getDataFromGoogleSheet } from "@/api/sheets-api";
-import { API_URL } from "@/api/api";
+import { API_URL } from "@/constants/api-keys";
 import RegistrationForm from "@/components/User/Registration/RegistrationForm";
 import { useRouter } from "next/navigation";
 
