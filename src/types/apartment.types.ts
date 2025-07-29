@@ -6,7 +6,7 @@
 //   balance: number;
 // }
 
-export type Apartment = {
+export type IApartment = {
   _id: string; // або string, якщо потрібно
   residents: {
     name: string;

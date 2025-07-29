@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../styles/globals.css";
-import { ApartmentProvider } from "@/context/ApartmentContext";
-import { API_URL } from "@/api";
+import { ReduxProvider } from "@/components/ReduxProvider";
 
 const geistMono = Poppins({
   weight: ["400", "600"],
@@ -24,16 +23,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const res = await fetch(`${API_URL}api/apartments/`, {
-    cache: "no-store",
-  });
-  const apartments = await res.json();
   return (
     <html lang="uk">
       <body className={`${geistMono.className} `}>
-        <ApartmentProvider initialApartments={apartments}>
+        <ReduxProvider>
           <main>{children}</main>
-        </ApartmentProvider>
+        </ReduxProvider>
+
         {/* <CookiesComponent /> */}
       </body>
     </html>

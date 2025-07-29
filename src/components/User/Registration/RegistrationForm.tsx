@@ -1,60 +1,74 @@
 "use client";
 
-import { useState } from "react";
-import { API_URL } from "@/api";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import authThunk from "@/store/auth/operations";
+import authSelectors from "@/store/auth/selectors";
+import { AppDispatch } from "@/store/store";
 
 export default function RegistrationForm() {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [userName, setUserName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [number, setNumber] = useState("");
-  const [error, setError] = useState<string | null>(null);
+
+  // Використовуємо селектори для отримання стейту
+  const isLoading = useSelector(authSelectors.isLoadingSelect);
+  const error = useSelector(authSelectors.errorSelect);
+  const message = useSelector(authSelectors.messageSelect);
+  const isLogin = useSelector(authSelectors.isLoginSelect);
+
+  const [localError, setLocalError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const handleRegister = async (e: React.FormEvent) => {
+  useEffect(() => {
+    if (message) {
+      setSuccess(message);
+    }
+  }, [message]);
+
+  useEffect(() => {
+    if (error) {
+      setLocalError(error);
+      setSuccess(null);
+    }
+  }, [error]);
+
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setError("Паролі не збігаються");
+      setLocalError("Паролі не збігаються");
+      setSuccess(null);
       return;
     }
 
-    try {
-      const response = await fetch(`${API_URL}api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          userName,
-          login,
-          password,
-          confirmPassword,
-          number: parseInt(number),
-        }),
-      });
+    setLocalError(null);
+    setSuccess(null);
 
-      if (response.ok) {
-        setSuccess("Реєстрація успішна!");
-        setError(null);
-        setUserName("");
-        setLogin("");
-        setPassword("");
-        setConfirmPassword("");
-        setNumber("");
-      } else {
-        const data = await response.json();
-        setError(data.message || "Помилка при реєстрації");
-        setSuccess(null);
-      }
-    } catch (err) {
-      console.error("Помилка при реєстрації:", err);
-      setError("Сталася помилка. Спробуйте пізніше.");
-      setSuccess(null);
-    }
+    dispatch(
+      authThunk.registerUserThunk({
+        userName,
+        login,
+        password,
+        confirmPassword,
+        number: parseInt(number),
+      })
+    );
   };
+
+  useEffect(() => {
+    if (isLogin && !isLoading) {
+      setUserName("");
+      setLogin("");
+      setPassword("");
+      setConfirmPassword("");
+      setNumber("");
+    }
+  }, [isLogin, isLoading]);
 
   return (
     <form
@@ -108,12 +122,13 @@ export default function RegistrationForm() {
       <button
         type="submit"
         className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        disabled={isLoading}
       >
-        Зареєструватися
+        {isLoading ? "Реєструємо..." : "Зареєструватися"}
       </button>
 
-      {error && <div className="text-red-600">{error}</div>}
-      {success && <div className="text-white-600">{success}</div>}
+      {localError && <div className="text-red-600">{localError}</div>}
+      {success && <div className="text-green-600">{success}</div>}
     </form>
   );
 }

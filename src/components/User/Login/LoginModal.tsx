@@ -1,50 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./LoginModal.module.css";
-import { API_URL } from "@/api";
 
-export default function LoginModal({ onClose }: { onClose: () => void }) {
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHook";
+import authThunk from "@/store/auth/operations";
+import authSelectors from "@/store/auth/selectors";
+
+interface LoginModalProps {
+  onClose: () => void;
+}
+
+export default function LoginModal({ onClose }: LoginModalProps) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [apartmentId, setApartmentId] = useState("");
 
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+  // Отримуємо стани з redux
+  const error = useAppSelector(authSelectors.errorSelect);
+  const isLoading = useAppSelector(authSelectors.isLoadingSelect);
+  const user = useAppSelector(authSelectors.userSelect);
+  const isLogin = useAppSelector(authSelectors.isLoginSelect);
 
-    try {
-      const res = await fetch(`${API_URL}api/auth/login`, {
-        method: "POST",
-        credentials: "include", // <== ОБОВ’ЯЗКОВО для куків (сесій)
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ login, password }),
-      });
-
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(errText || "Невірний логін або пароль");
-      }
-
-      const data = await res.json();
-      const user = data.user;
-
+  // При успішному логіні перенаправляємо і закриваємо модалку
+  useEffect(() => {
+    if (isLogin && user) {
       onClose();
 
+      const userNumber = user.number ?? 0; // дефолт 0 або інше значення
+
       if (user.role === "admin") {
+        localStorage.setItem("adminId", userNumber.toString());
+        localStorage.setItem("userName", user.userName ?? "");
         router.push("/admin");
       } else {
+        localStorage.setItem("userName", user.userName ?? "");
         router.push(`/user/${user.number}`);
       }
-    } catch (err: any) {
-      setError(err.message || "Сталася помилка. Спробуйте пізніше.");
     }
+  }, [isLogin, user, onClose, router]);
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(
+      authThunk.loginUserThunk({
+        login,
+        password,
+      })
+    );
   };
 
   return (
@@ -55,8 +63,8 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
             className={styles.userData}
             type="number"
             placeholder="Номер квартири"
-            min="0"
-            max="176"
+            min={0}
+            max={176}
             value={apartmentId}
             onChange={(e) => setApartmentId(e.target.value)}
             required
@@ -78,13 +86,18 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className={styles.enterButton} type="submit">
-            Увійти
+          <button
+            className={styles.enterButton}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "Завантаження..." : "Увійти"}
           </button>
           <button
             className={styles.closeButton}
             type="button"
             onClick={onClose}
+            disabled={isLoading}
           >
             x
           </button>

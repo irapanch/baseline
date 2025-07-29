@@ -2,7 +2,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Apartment } from "@/types/apartment.types";
+import { IApartment } from "@/types/apartment.types";
 
 type ApartmentContextType = {
   apartments: Apartment[];

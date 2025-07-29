@@ -4,13 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getDataFromGoogleSheet } from "@/api/sheets-api";
-import { API_URL } from "@/api";
+import { API_URL } from "@/api/api";
 import RegistrationForm from "@/components/User/Registration/RegistrationForm";
+import { useRouter } from "next/navigation";
 
 export default function AdminPage() {
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const handleGoToCabinet = () => {
+    const adminId = localStorage.getItem("adminId");
+
+    if (adminId) {
+      router.push(`/user/${adminId}`); // або `/user/${adminId}`, якщо потрібно
+    } else {
+      router.push("/login"); // або на сторінку логіну
+    }
+  };
   const handleUpdate = async () => {
     setLoading(true);
 
@@ -54,7 +65,6 @@ export default function AdminPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <RegistrationForm />
       <Link href="/">
         <Image
           src="/images/arrow-circle-backward.svg"
@@ -63,7 +73,15 @@ export default function AdminPage() {
           height={44}
         />
       </Link>
+      <a className="cabinet">
+        <p>Перехід до кабінета</p>
+        <button onClick={handleGoToCabinet} className="btn">
+          Відкрити кабінет
+        </button>
+      </a>
 
+      <Link href="/"></Link>
+      <RegistrationForm />
       <div className="flex items-center justify-between my-4">
         <h1 className="text-2xl font-bold">Данные из Google Sheets</h1>
         <button
