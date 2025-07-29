@@ -1,4 +1,4 @@
-import { API_SHEET_KEY, SHEET_ID } from "@/api/api";
+import { API_SHEET_KEY, SHEET_ID } from "@/constants/api-keys";
 import axios from "axios";
 
 export const getDataFromGoogleSheet = async () => {
